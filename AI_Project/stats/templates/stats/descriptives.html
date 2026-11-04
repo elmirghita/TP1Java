@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques descriptives</title>
+</head>
+<body>
+    <h1>Statistiques descriptives</h1>
+
+    <p><a href="{% url 'accueil' %}">← Retour à l'accueil</a></p>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="nombres">Entrez des nombres séparés par des virgules :</label><br>
+        <input type="text" id="nombres" name="nombres"
+               placeholder="ex : 4, 8, 6, 5, 3, 8" size="40">
+        <button type="submit">Calculer</button>
+    </form>
+
+    {% if erreur %}
+        <p style="color: red;">{{ erreur }}</p>
+    {% endif %}
+
+    {% if moyenne is not None %}
+    <h2>Résultats</h2>
+    <table border="1" cellpadding="8">
+        <tr><th>Opération</th><th>Résultat</th></tr>
+        <tr><td>Moyenne</td><td>{{ moyenne|floatformat:2 }}</td></tr>
+        <tr><td>Médiane</td><td>{{ mediane|floatformat:2 }}</td></tr>
+        <tr><td>Mode</td><td>{{ mode|floatformat:2 }}</td></tr>
+        <tr><td>Étendue</td><td>{{ etendue|floatformat:2 }}</td></tr>
+        <tr><td>Variance</td><td>{{ variance|floatformat:2 }}</td></tr>
+        <tr><td>Écart type</td><td>{{ ecart_type|floatformat:2 }}</td></tr>
+    </table>
+{% endif %}
+</body>
+</html>

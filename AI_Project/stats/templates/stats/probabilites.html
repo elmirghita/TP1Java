@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Probabilités</title>
+</head>
+<body>
+    <h1>Probabilités</h1>
+    <p><a href="{% url 'accueil' %}">← Retour à l'accueil</a></p>
+
+    {% if erreur %}
+        <p style="color: red;">{{ erreur }}</p>
+    {% endif %}
+
+    {% if resultat is not None %}
+        <h2>{{ nom_operation }}</h2>
+        <p>Résultat : {{ resultat|floatformat:4 }}</p>
+    {% endif %}
+
+    <hr>
+    <h2>Probabilité conditionnelle P(A|B) = P(A∩B) / P(B)</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>P(A∩B) : <input type="number" step="any" name="a_inter_b"></label>
+        <label>P(B) : <input type="number" step="any" name="p_b"></label>
+        <button type="submit" name="operation" value="conditionnelle">Calculer</button>
+    </form>
+
+    <hr>
+    <h2>Espérance E(X) = Σ x · P(x)</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Valeurs (séparées par ;) : <input type="text" name="valeurs" placeholder="1;2;3"></label><br>
+        <label>Probabilités (séparées par ;) : <input type="text" name="probas" placeholder="0.2;0.5;0.3"></label>
+        <button type="submit" name="operation" value="esperance">Calculer</button>
+    </form>
+
+    <hr>
+    <h2>Théorème de Bayes</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>P(A) : <input type="number" step="any" name="p_a"></label>
+        <label>P(B|A) : <input type="number" step="any" name="p_b_a"></label>
+        <label>P(B|non A) : <input type="number" step="any" name="p_b_non_a"></label>
+        <button type="submit" name="operation" value="bayes">Calculer</button>
+    </form>
+</body>
+</html>

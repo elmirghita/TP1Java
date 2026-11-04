@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dénombrement</title>
+</head>
+<body>
+    <h1>Arrangements et combinaisons</h1>
+    <p><a href="{% url 'accueil' %}">← Retour à l'accueil</a></p>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>n (nombre total) : <input type="number" name="n" min="0"></label>
+        <label>k (nombre choisi) : <input type="number" name="k" min="0"></label><br><br>
+        <button type="submit" name="operation" value="arrangement">Arrangement</button>
+        <button type="submit" name="operation" value="combinaison">Combinaison</button>
+    </form>
+
+    {% if erreur %}
+        <p style="color: red;">{{ erreur }}</p>
+    {% endif %}
+
+    {% if resultat is not None %}
+        <h2>{{ nom_operation }}</h2>
+        <p>Résultat : {{ resultat }}</p>
+    {% endif %}
+</body>
+</html>
